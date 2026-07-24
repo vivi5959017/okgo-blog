@@ -1,0 +1,76 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blog');
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Layout title={post.data.title}>
+  <article>
+    <a href="/blog" style="color: #667eea; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 24px;">
+      ← 返回博客列表
+    </a>
+    
+    <h1 style="margin-bottom: 8px;">{post.data.title}</h1>
+    <div style="color: #6b7280; margin-bottom: 24px; display: flex; gap: 16px;">
+      <span>📅 {post.data.pubDate.toDateString()}</span>
+      {post.data.tags && (
+        <div style="display: flex; gap: 8px;">
+          {post.data.tags.map((tag) => (
+            <span style="background: #f3f4f6; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem;">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+    
+    <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
+    
+    <div style="line-height: 1.8; color: #374151;">
+      <Content />
+    </div>
+  </article>
+</Layout>
+
+<style>
+  article :deep(h1), article :deep(h2), article :deep(h3) {
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: #111827;
+  }
+  article :deep(p) {
+    margin-bottom: 16px;
+  }
+  article :deep(ul), article :deep(ol) {
+    margin-left: 20px;
+    margin-bottom: 16px;
+  }
+  article :deep(code) {
+    background: #f3f4f6;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+  }
+  article :deep(pre) {
+    background: #1f2937;
+    color: #f9fafb;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin-bottom: 16px;
+  }
+  article :deep(pre code) {
+    background: none;
+    padding: 0;
+  }
+</style>

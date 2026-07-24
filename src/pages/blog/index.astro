@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog');
+---
+
+<Layout title="博客 | 我的 Astro 博客">
+  <h1 style="margin-bottom: 24px;">📝 博客文章</h1>
+  
+  {blogPosts.length > 0 ? (
+    <ul style="list-style: none; display: grid; gap: 20px;">
+      {blogPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).map((post) => (
+        <li style="padding: 20px; border: 1px solid #e5e7eb; border-radius: 12px; transition: box-shadow 0.2s;">
+          <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit; display: block;">
+            <h2 style="color: #111827; margin-bottom: 8px;">{post.data.title}</h2>
+            <p style="color: #6b7280; margin-bottom: 12px;">{post.data.description}</p>
+            <div style="display: flex; gap: 12px; align-items: center; color: #9ca3af;">
+              <span>📅 {post.data.pubDate.toDateString()}</span>
+              {post.data.tags && (
+                <div style="display: flex; gap: 8px;">
+                  {post.data.tags.map((tag) => (
+                    <span style="background: #f3f4f6; padding: 2px 8px; border-radius: 9999px; font-size: 0.75rem;">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p style="color: #6b7280;">还没有文章，快写第一篇吧！</p>
+  )}
+</Layout>

@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const blogPosts = await getCollection('blog');
+---
+
+<Layout title="首页 | 我的 Astro 博客">
+  <h1 style="margin-bottom: 8px;">欢迎来到我的博客！🚀</h1>
+  <p style="color: #666; margin-bottom: 24px;">使用 Astro + Vercel 构建的技术博客</p>
+  
+  <h2 style="margin: 32px 0 16px 0;">最新文章</h2>
+  {blogPosts.length > 0 ? (
+    <ul style="list-style: none; display: grid; gap: 16px;">
+      {blogPosts.slice(0, 5).map((post) => (
+        <li style="padding: 16px; border: 1px solid #e5e7eb; border-radius: 8px;">
+          <a href={`/blog/${post.slug}`} style="text-decoration: none; color: inherit; display: block;">
+            <h3 style="color: #111827; margin-bottom: 8px;">{post.data.title}</h3>
+            <p style="color: #6b7280; margin-bottom: 8px;">{post.data.description}</p>
+            <p style="color: #9ca3af; font-size: 0.875rem;">
+              {post.data.pubDate.toDateString()}
+            </p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p style="color: #6b7280;">还没有文章，快写第一篇吧！</p>
+  )}
+  
+  <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%); border-radius: 12px;">
+    <h3 style="margin-bottom: 12px;">✨ 关于这个博客</h3>
+    <ul style="color: #4b5563; margin-left: 20px;">
+      <li>使用 Astro 静态站点生成器</li>
+      <li>部署在 Vercel，访问超快</li>
+      <li>Markdown 写文章，体验极佳</li>
+    </ul>
+  </div>
+</Layout>
