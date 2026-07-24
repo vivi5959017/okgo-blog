@@ -1,4 +1,4 @@
-<img width="1080" height="1441" alt="image" src="https://github.com/user-attachments/assets/0faff2cf-ae41-4fb5-a03c-2cbfca6f4c26" />---
+
 title:一次前向传播过程
 description: 这篇文章介绍大模型从向量化到多头注意力到FFN最后概率输出。
 pubDate: 2026-06-21
