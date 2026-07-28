@@ -5,9 +5,9 @@ import { getCollection } from 'astro:content';
 const blogPosts = await getCollection('blog');
 ---
 
-<Layout title="首页 | 我的 Astro 博客">
+<Layout title="首页 | okgo的技术博客">
   <h1 style="margin-bottom: 8px;">欢迎来到我的博客！🚀</h1>
-  <p style="color: #666; margin-bottom: 24px;">使用 Astro + Vercel 构建的技术博客</p>
+  <p style="color: #666; margin-bottom: 24px;">分享业务和技术的博客</p>
   
   <h2 style="margin: 32px 0 16px 0;">最新文章</h2>
   {blogPosts.length > 0 ? (
@@ -31,9 +31,9 @@ const blogPosts = await getCollection('blog');
   <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, #667eea20 0%, #764ba220 100%); border-radius: 12px;">
     <h3 style="margin-bottom: 12px;">✨ 关于这个博客</h3>
     <ul style="color: #4b5563; margin-left: 20px;">
-      <li>使用 Astro 静态站点生成器</li>
-      <li>部署在 Vercel，访问超快</li>
-      <li>Markdown 写文章，体验极佳</li>
+      <li>分享下底层技术原理</li>
+      <li>项目落地时间经验</li>
+      <li>不定期个人心得总结</li>
     </ul>
   </div>
 </Layout>
